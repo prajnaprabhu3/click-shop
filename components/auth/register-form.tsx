@@ -61,6 +61,7 @@ export default function RegisterForm() {
       cardTitle="Welcome to Click Shop!"
       navigationOptionPath="/auth/login"
       navigationOptionLabel="Already have an account?"
+      customClass="border-none"
       showSocials
     >
       <div>
@@ -126,10 +127,12 @@ export default function RegisterForm() {
                 )}
               />
 
-              <FormSuccess message={success} />
-              <FormError message={error} />
+              <div className="my-2">
+                <FormSuccess message={success} />
+                <FormError message={error} />
+              </div>
 
-              <Button size={"sm"} variant={"link"} asChild>
+              <Button className="px-0" size={"sm"} variant={"link"} asChild>
                 <Link href="/auth/reset-password">Forgot Password</Link>
               </Button>
             </div>

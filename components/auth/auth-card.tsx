@@ -1,6 +1,7 @@
 import SocialOptions from "./social-options";
 import NavigationOption from "./navigation-option";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type AuthCardProps = {
   cardTitle: string;
@@ -8,6 +9,7 @@ type AuthCardProps = {
   navigationOptionPath: string;
   navigationOptionLabel: string;
   showSocials?: boolean;
+  customClass?: string;
 };
 
 export const AuthCard = ({
@@ -16,9 +18,10 @@ export const AuthCard = ({
   navigationOptionPath,
   navigationOptionLabel,
   showSocials,
+  customClass,
 }: AuthCardProps) => {
   return (
-    <Card className="px-4 py-2 w-[500px] border-none shadow-none">
+    <Card className={cn("px-4 py-2 w-[500px] shadow-none", customClass)}>
       <CardTitle className="px-5 py-6">{cardTitle}</CardTitle>
       <CardContent>{children}</CardContent>
 

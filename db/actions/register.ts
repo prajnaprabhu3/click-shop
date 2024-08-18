@@ -1,3 +1,5 @@
+"use server";
+
 import { RegisterSchema } from "@/types/register-schema";
 import { createSafeActionClient } from "next-safe-action";
 import bcrypt from "bcrypt";
@@ -36,7 +38,7 @@ export const emailRegister = actionClient
     await db.insert(users).values({
       email,
       name,
-      //   password: hashedPassword,
+      password: hashedPassword,
     });
 
     const verificationToken = await generateEmailVerificationToken(email);

@@ -5,6 +5,7 @@ import { createSafeActionClient } from "next-safe-action";
 import { db } from "..";
 import { users } from "../schema";
 import { eq } from "drizzle-orm";
+
 import { signIn } from "@/auth/config";
 import { AuthError } from "next-auth";
 import { generateEmailVerificationToken } from "./token";
@@ -18,10 +19,12 @@ export const emailSignIn = actionClient
     try {
       // console.log(email, password, twofacode);
 
+      console.log("after exisitngUser");
       const existingUser = await db.query.users.findFirst({
         where: eq(users.email, email),
       });
 
+      console.log("after exisitngUser");
       if (existingUser?.email !== email) {
         return { error: "User not found" };
       }
@@ -31,6 +34,7 @@ export const emailSignIn = actionClient
           existingUser.email
         );
 
+        console.log("before sending email");
         await sendVerificationEmail(
           verificationToken[0].email,
           verificationToken[0].token
@@ -47,7 +51,6 @@ export const emailSignIn = actionClient
         redirectTo: "/",
       });
     } catch (error) {
-      console.log(error);
       if (error instanceof AuthError) {
         switch (error.type) {
           case "CredentialsSignin":

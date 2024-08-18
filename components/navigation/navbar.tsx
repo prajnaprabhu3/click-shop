@@ -6,7 +6,7 @@ import { auth } from "@/auth/config";
 export default async function Navbar() {
   const session = await auth();
 
-  console.log(session);
+  console.log(session, "from navbar");
 
   return (
     <header className="px-8">
@@ -15,7 +15,7 @@ export default async function Navbar() {
 
         <div>
           {!session ? (
-            <Button>
+            <Button className="h-8">
               <Link href="auth/login">Login</Link>
             </Button>
           ) : (

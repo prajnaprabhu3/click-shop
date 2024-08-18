@@ -1,3 +1,9 @@
+import VerifyEmailForm from "@/components/auth/verify-email-form";
+
 export default function VerifyEmail() {
-  return <h4>Verify Email</h4>;
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <VerifyEmailForm />
+    </div>
+  );
 }

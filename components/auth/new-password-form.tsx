@@ -1,13 +1,11 @@
 "use client";
 
-import { LoginSchema } from "@/types/login-schema";
 import {
   Form,
   FormItem,
   FormLabel,
   FormField,
   FormControl,
-  FormDescription,
   FormMessage,
 } from "../ui/form";
 import { AuthCard } from "./auth-card";
@@ -16,30 +14,34 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import Link from "next/link";
 
 import { useAction } from "next-safe-action/hooks";
-import { emailSignIn } from "@/db/actions/email-signin";
+import { newPassword } from "@/db/actions/new-password";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
+import { NewPasswordSchema } from "@/types/new-password-schema";
+import { useSearchParams } from "next/navigation";
 
-export default function LoginForm() {
-  const form = useForm({
-    resolver: zodResolver(LoginSchema),
+export default function NewPasswordForm() {
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
-      email: "",
       password: "",
-      twofacode: "",
+      token: "",
     },
   });
 
   const [error, setError] = useState("");
   const [success, setSucccess] = useState("");
 
-  const { execute, status, result } = useAction(emailSignIn, {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
+  const { execute, status, result } = useAction(newPassword, {
     onSuccess(data) {
+      console.log(data, "onSuccess new-password-form");
       if (data.data?.error) {
         setError(error);
       }
@@ -49,43 +51,22 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values, "My Values");
-    execute(values);
+  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
+    // console.log(values, "values within new-password"); // working
+    execute({ password: values.password, token });
   };
 
   return (
     <AuthCard
-      cardTitle="Welcome Back!"
-      navigationOptionPath="/auth/register"
-      navigationOptionLabel="Crete a new account"
-      customClass="border-none"
+      cardTitle="Enter new password"
+      navigationOptionPath="/auth/login"
+      navigationOptionLabel="Back to login"
       showSocials
     >
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your email"
-                        {...field}
-                        type="email"
-                        autoComplete="email"
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              ></FormField>
-
               <FormField
                 control={form.control}
                 name="password"
@@ -100,7 +81,9 @@ export default function LoginForm() {
                         autoComplete="current-password"
                       />
                     </FormControl>
-
+                    {/* <FormDescription>
+                    This is your public display name.
+                  </FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -108,10 +91,6 @@ export default function LoginForm() {
 
               <FormSuccess message={success} />
               <FormError message={error} />
-
-              <Button size={"sm"} variant={"link"} asChild>
-                <Link href="/auth/reset-password">Forgot Password</Link>
-              </Button>
             </div>
             <Button
               type="submit"
@@ -120,7 +99,7 @@ export default function LoginForm() {
                 status === "executing" ? "animate-pulse" : ""
               )}
             >
-              Login
+              Reset Password
             </Button>
           </form>
         </Form>

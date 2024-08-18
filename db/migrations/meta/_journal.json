@@ -15,6 +15,13 @@
       "when": 1723990831512,
       "tag": "0001_eager_shiver_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1723994960175,
+      "tag": "0002_lethal_callisto",
+      "breakpoints": true
     }
   ]
 }

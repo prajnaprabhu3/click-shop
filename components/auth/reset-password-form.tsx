@@ -16,29 +16,27 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import Link from "next/link";
 
 import { useAction } from "next-safe-action/hooks";
-import { emailSignIn } from "@/db/actions/email-signin";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
+import { ResetPasswordSchema } from "@/types/reset-password-schema";
+import { resetPassword } from "@/db/actions/reset-password";
 
-export default function LoginForm() {
-  const form = useForm({
-    resolver: zodResolver(LoginSchema),
+export default function ResetPasswordForm() {
+  const form = useForm<z.infer<typeof ResetPasswordSchema>>({
+    resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
       email: "",
-      password: "",
-      twofacode: "",
     },
   });
 
   const [error, setError] = useState("");
   const [success, setSucccess] = useState("");
 
-  const { execute, status, result } = useAction(emailSignIn, {
+  const { execute, status, result } = useAction(resetPassword, {
     onSuccess(data) {
       if (data.data?.error) {
         setError(error);
@@ -49,17 +47,16 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values, "My Values");
+  const onSubmit = (values: z.infer<typeof ResetPasswordSchema>) => {
+    // console.log(values, "My Values");
     execute(values);
   };
 
   return (
     <AuthCard
-      cardTitle="Welcome Back!"
-      navigationOptionPath="/auth/register"
-      navigationOptionLabel="Crete a new account"
-      customClass="border-none"
+      cardTitle="Forgot your password?"
+      navigationOptionPath="/auth/login"
+      navigationOptionLabel="Back to login"
       showSocials
     >
       <div>
@@ -74,33 +71,13 @@ export default function LoginForm() {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your email"
+                        placeholder="Enter your Email"
+                        disabled={status === "executing"}
                         {...field}
                         type="email"
                         autoComplete="email"
                       />
                     </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              ></FormField>
-
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your Password"
-                        {...field}
-                        type="password"
-                        autoComplete="current-password"
-                      />
-                    </FormControl>
-
                     <FormMessage />
                   </FormItem>
                 )}
@@ -108,10 +85,6 @@ export default function LoginForm() {
 
               <FormSuccess message={success} />
               <FormError message={error} />
-
-              <Button size={"sm"} variant={"link"} asChild>
-                <Link href="/auth/reset-password">Forgot Password</Link>
-              </Button>
             </div>
             <Button
               type="submit"
@@ -120,7 +93,7 @@ export default function LoginForm() {
                 status === "executing" ? "animate-pulse" : ""
               )}
             >
-              Login
+              Send Email
             </Button>
           </form>
         </Form>
