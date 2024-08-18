@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import { db } from "..";
 import { eq } from "drizzle-orm";
 import { users } from "../schema";
-import { sendVerificationEmail } from "./emai";
+import { sendVerificationEmail } from "./email";
 import { generateEmailVerificationToken } from "./token";
 
 const actionClient = createSafeActionClient();

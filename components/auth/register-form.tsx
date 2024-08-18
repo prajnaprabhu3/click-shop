@@ -67,12 +67,12 @@ export default function RegisterForm() {
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div>
+            <div className="flex flex-col gap-y-2 items-start">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input
@@ -91,7 +91,7 @@ export default function RegisterForm() {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
@@ -111,7 +111,7 @@ export default function RegisterForm() {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
@@ -127,10 +127,8 @@ export default function RegisterForm() {
                 )}
               />
 
-              <div className="my-2">
-                <FormSuccess message={success} />
-                <FormError message={error} />
-              </div>
+              <FormSuccess message={success} />
+              <FormError message={error} />
 
               <Button className="px-0" size={"sm"} variant={"link"} asChild>
                 <Link href="/auth/reset-password">Forgot Password</Link>

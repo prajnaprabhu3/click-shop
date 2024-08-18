@@ -31,7 +31,7 @@ export const AuthCard = ({
         </CardFooter>
       )}
 
-      <CardFooter>
+      <CardFooter className="text-start items-start">
         <NavigationOption
           path={navigationOptionPath}
           label={navigationOptionLabel}

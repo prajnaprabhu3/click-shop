@@ -31,3 +31,15 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   if (error) return error;
   if (data) return error;
 };
+
+export const sendTwoFaCodeEmail = async (email: string, token: string) => {
+  const { data, error } = await resend.emails.send({
+    from: "Prajna <onboarding@resend.dev>",
+    to: email,
+    subject: "Click Shop - 2FA Code",
+    html: `<p>Your Confirmation Code: ${token}</p>`,
+  });
+
+  if (error) return error;
+  if (data) return error;
+};

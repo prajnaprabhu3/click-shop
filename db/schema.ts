@@ -93,7 +93,7 @@ export const twoFaTokens = pgTable(
     token: text("token").notNull(),
     expires: timestamp("expires", { mode: "date" }).notNull(),
     email: text("email").notNull(),
-    userId: text("UserId").references(() => users.id, { onDelete: "cascade" }), // changes: when we delete a user all 2FA token associated with that userId will also get deleted
+    userId: text("UserId").references(() => users.id, { onDelete: "cascade" }),
   },
   (twoFaToken) => ({
     compositePk: primaryKey({
