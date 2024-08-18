@@ -57,9 +57,10 @@ export default function ResetPasswordForm() {
       cardTitle="Forgot your password?"
       navigationOptionPath="/auth/login"
       navigationOptionLabel="Back to login"
-      showSocials
+      customClass="border-none"
+      showSocials={false}
     >
-      <div>
+      <div className="flex flex-col gap-y-2">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div>
@@ -89,7 +90,7 @@ export default function ResetPasswordForm() {
             <Button
               type="submit"
               className={cn(
-                "w-full my-2",
+                "w-full mt-3",
                 status === "executing" ? "animate-pulse" : ""
               )}
             >

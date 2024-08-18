@@ -65,20 +65,21 @@ export default function LoginForm() {
     execute(values);
   };
 
-  return (
-    <AuthCard
-      cardTitle="Welcome Back!"
-      navigationOptionPath="/auth/register"
-      navigationOptionLabel="Crete a new account"
-      showSocials
-      customClass="border-none"
-    >
-      <div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="flex flex-col ju gap-y-2 items-start">
-              {/* 2fa code field  */}
-              {show2FA && (
+  if (show2FA) {
+    return (
+      <AuthCard
+        cardTitle="Welcome Back!"
+        navigationOptionPath="/auth/register"
+        navigationOptionLabel="Crete a new account"
+        showSocials={false}
+        customClass="border-none"
+      >
+        <div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="flex flex-col ju gap-y-2 items-start">
+                {/* 2fa code field  */}
+
                 <FormField
                   control={form.control}
                   name="twofacode"
@@ -106,52 +107,131 @@ export default function LoginForm() {
                     </FormItem>
                   )}
                 ></FormField>
-              )}
+
+                {/* other fields  */}
+                {!show2FA && (
+                  <>
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your email"
+                              {...field}
+                              type="email"
+                              autoComplete="email"
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    ></FormField>
+
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Password</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your Password"
+                              {...field}
+                              type="password"
+                              autoComplete="current-password"
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    ></FormField>
+                  </>
+                )}
+
+                <FormSuccess message={success} />
+                <FormError message={error} />
+
+                <Button className="px-0" size={"sm"} variant={"link"} asChild>
+                  <Link href="/auth/reset-password">Forgot Password</Link>
+                </Button>
+              </div>
+              <Button
+                type="submit"
+                className={cn(
+                  "w-full my-2",
+                  status === "executing" ? "animate-pulse" : ""
+                )}
+              >
+                {show2FA ? "Verify" : "Login"}
+              </Button>
+            </form>
+          </Form>
+        </div>
+      </AuthCard>
+    );
+  }
+  return (
+    <AuthCard
+      cardTitle="Welcome Back!"
+      navigationOptionPath="/auth/register"
+      navigationOptionLabel="Crete a new account"
+      showSocials
+      customClass="border-none"
+    >
+      <div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="flex flex-col ju gap-y-2 items-start">
+              {/* 2fa code field  */}
 
               {/* other fields  */}
-              {!show2FA && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your email"
-                            {...field}
-                            type="email"
-                            autoComplete="email"
-                          />
-                        </FormControl>
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  ></FormField>
+              <>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your email"
+                          {...field}
+                          type="email"
+                          autoComplete="email"
+                        />
+                      </FormControl>
 
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your Password"
-                            {...field}
-                            type="password"
-                            autoComplete="current-password"
-                          />
-                        </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                ></FormField>
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  ></FormField>
-                </>
-              )}
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your Password"
+                          {...field}
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                      </FormControl>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                ></FormField>
+              </>
 
               <FormSuccess message={success} />
               <FormError message={error} />

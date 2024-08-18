@@ -61,7 +61,7 @@ export default function NewPasswordForm() {
       cardTitle="Enter new password"
       navigationOptionPath="/auth/login"
       navigationOptionLabel="Back to login"
-      showSocials
+      showSocials={false}
     >
       <div>
         <Form {...form}>
@@ -95,7 +95,7 @@ export default function NewPasswordForm() {
             <Button
               type="submit"
               className={cn(
-                "w-full my-2",
+                "w-full mt-3",
                 status === "executing" ? "animate-pulse" : ""
               )}
             >
