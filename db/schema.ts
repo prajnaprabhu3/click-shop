@@ -10,7 +10,7 @@ import {
 import type { AdapterAccountType } from "next-auth/adapters";
 import { createId } from "@paralleldrive/cuid2";
 
-export const RoleEnum = pgEnum("roles", ["user", "admin"]);
+export const RoleEnum = pgEnum("role", ["user", "admin"]);
 
 export const users = pgTable("user", {
   id: text("id")
@@ -23,7 +23,7 @@ export const users = pgTable("user", {
   image: text("image"),
   password: text("password"), // change: add password field
   twoFactorEnabled: boolean("twoFactorEnabled").default(false),
-  role: RoleEnum("roles").default("user"),
+  role: RoleEnum("role").default("user"),
 });
 
 export const accounts = pgTable(

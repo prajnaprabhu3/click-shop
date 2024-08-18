@@ -29,12 +29,14 @@ export const emailSignIn = actionClient
         return { error: "User not found" };
       }
 
+      console.log("before if not exisitng user");
       if (!existingUser.emailVerified) {
         const verificationToken = await generateEmailVerificationToken(
           existingUser.email
         );
 
         console.log("before sending email");
+        console.log("verificationToken", verificationToken);
         await sendVerificationEmail(
           verificationToken[0].email,
           verificationToken[0].token

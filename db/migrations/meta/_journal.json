@@ -22,6 +22,13 @@
       "when": 1723994960175,
       "tag": "0002_lethal_callisto",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1723996719975,
+      "tag": "0003_bright_namor",
+      "breakpoints": true
     }
   ]
 }
