@@ -49,7 +49,10 @@ export default async function DashboardLayout({
   return (
     <div className="flex">
       <Sidebar dashboardLinks={dashboardLinks} />
-      {children}
+
+      <main className="w-full flex items-center justify-center h-screen">
+        {children}
+      </main>
     </div>
   );
 }
