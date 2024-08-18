@@ -113,7 +113,7 @@ export default function SettingsCard(session: SettingsCardProp) {
                       </div>
                     )}
 
-                    <div className="">
+                    <div className="flex items-center">
                       {form.getValues("image") && (
                         <Image
                           alt="profile-image"
@@ -125,7 +125,7 @@ export default function SettingsCard(session: SettingsCardProp) {
                       )}
 
                       <UploadButton
-                        className="scale-75 mb-4 ut-button:ring-primary  ut-label:bg-red-50  ut-button:bg-primary/75  hover:ut-button:bg-primary/100 ut:button:transition-all ut-button:duration-500  ut-label:hidden ut-allowed-content:hidden"
+                        className="scale-75 ut-button:ring-primary  ut-label:bg-red-50  ut-button:bg-primary/75  hover:ut-button:bg-primary/100 ut:button:transition-all ut-button:duration-500  ut-label:hidden ut-allowed-content:hidden"
                         endpoint="avatarUploader"
                         onUploadBegin={() => {
                           setAvatarUploading(true);

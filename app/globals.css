@@ -69,3 +69,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* uploadthing image upload loading bgColor  */
+[data-ut-element="button"][data-state="uploading"]::after {
+  @apply bg-primary/50;
+}
