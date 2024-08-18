@@ -17,6 +17,11 @@ import * as z from "zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
+
+import { useAction } from "next-safe-action/hooks";
+import { emailSignIn } from "@/db/actions/email-signin";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 
@@ -29,26 +34,41 @@ export default function LoginForm() {
     },
   });
 
+  const [error, setError] = useState("");
+  const [success, setSucccess] = useState("");
+
+  const { execute, status, result } = useAction(emailSignIn, {
+    onSuccess(data) {
+      if (data.data?.error) {
+        setError(error);
+      }
+      if (data.data?.success) {
+        setSucccess(data.data.success);
+      }
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values, "My Values");
+    // console.log(values, "My Values");
+    execute(values);
   };
 
   return (
     <AuthCard
       cardTitle="Welcome Back!"
-      navigationOptionLabel="Don't have one? Crete an account"
       navigationOptionPath="/auth/register"
+      navigationOptionLabel="Crete a new account"
       showSocials
     >
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-y-2 items-start">
+            <div>
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
@@ -68,7 +88,7 @@ export default function LoginForm() {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
@@ -78,22 +98,29 @@ export default function LoginForm() {
                         autoComplete="current-password"
                       />
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}
               ></FormField>
 
-              <Button className="px-0" size={"sm"} variant={"link"} asChild>
+              <FormSuccess message={success} />
+              <FormError message={error} />
+
+              <Button size={"sm"} variant={"link"} asChild>
                 <Link href="/auth/reset-password">Forgot Password</Link>
               </Button>
             </div>
-            <Button type="submit" className="w-full my-2">
+            <Button
+              type="submit"
+              className={cn(
+                "w-full my-2",
+                status === "executing" ? "animate-pulse" : ""
+              )}
+            >
               Login
             </Button>
           </form>
-
-          <FormSuccess message="This is a success message" />
-          <FormError message="This is a error message" />
         </Form>
       </div>
     </AuthCard>

@@ -1,6 +1,5 @@
 "use client";
 
-import { LoginSchema } from "@/types/login-schema";
 import {
   Form,
   FormItem,
@@ -19,10 +18,13 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 
 import { useAction } from "next-safe-action/hooks";
-import { emailSignIn } from "@/db/actions/email-signin";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { RegisterSchema } from "@/types/register-schema";
+
+import { FormSuccess } from "./form-success";
+import { FormError } from "./form-error";
+import { emailRegister } from "@/db/actions/register";
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -35,9 +37,23 @@ export default function RegisterForm() {
   });
 
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const { execute, status } = useAction(emailRegister, {
+    onSuccess(data) {
+      if (data.data?.error) {
+        setError(data.data.error);
+      }
+
+      if (data.data?.success) {
+        setSuccess(data.data.success);
+      }
+    },
+  });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     console.log(values, "My Values");
+    execute(values);
   };
 
   return (
@@ -50,12 +66,12 @@ export default function RegisterForm() {
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-y-2 items-start">
+            <div>
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input
@@ -64,16 +80,17 @@ export default function RegisterForm() {
                         type="text"
                       />
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}
-              ></FormField>
+              />
 
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
@@ -87,13 +104,13 @@ export default function RegisterForm() {
                     <FormMessage />
                   </FormItem>
                 )}
-              ></FormField>
+              />
 
               <FormField
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
@@ -103,19 +120,24 @@ export default function RegisterForm() {
                         autoComplete="current-password"
                       />
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}
-              ></FormField>
+              />
 
-              {/* <Button className="p-0" size={"sm"} variant={"link"} asChild>
+              <FormSuccess message={success} />
+              <FormError message={error} />
+
+              <Button size={"sm"} variant={"link"} asChild>
                 <Link href="/auth/reset-password">Forgot Password</Link>
-              </Button> */}
+              </Button>
             </div>
+
             <Button
               type="submit"
               className={cn(
-                "w-full my-4",
+                "w-full my-2",
                 status === "executing" ? "animate-pulse" : ""
               )}
             >

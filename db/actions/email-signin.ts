@@ -5,30 +5,62 @@ import { createSafeActionClient } from "next-safe-action";
 import { db } from "..";
 import { users } from "../schema";
 import { eq } from "drizzle-orm";
+import { signIn } from "@/auth/config";
+import { AuthError } from "next-auth";
+import { generateEmailVerificationToken } from "./token";
+import { sendVerificationEmail } from "./emai";
 
 const actionClient = createSafeActionClient();
 
 export const emailSignIn = actionClient
   .schema(LoginSchema)
   .action(async ({ parsedInput: { email, password, twofacode } }) => {
-    // console.log(email, password, twofacode);
+    try {
+      // console.log(email, password, twofacode);
 
-    //check if the user in the database
-    const existingUser = await db.query.users.findFirst({
-      where: eq(users.email, email),
-    });
+      const existingUser = await db.query.users.findFirst({
+        where: eq(users.email, email),
+      });
 
-    // return error message when user not found
-    if (existingUser?.email !== email) {
-      return { error: "User not found" };
+      if (existingUser?.email !== email) {
+        return { error: "User not found" };
+      }
+
+      if (!existingUser.emailVerified) {
+        const verificationToken = await generateEmailVerificationToken(
+          existingUser.email
+        );
+
+        await sendVerificationEmail(
+          verificationToken[0].email,
+          verificationToken[0].token
+        );
+
+        return { success: "Confirmation email sent" };
+      }
+
+      // check if 2FA is true - TODO
+
+      await signIn("credentials", {
+        email,
+        password,
+        redirectTo: "/",
+      });
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AuthError) {
+        switch (error.type) {
+          case "CredentialsSignin":
+            return { error: "Email or Password Incorrect" };
+          case "AccessDenied":
+            return { error: error.message };
+          case "OAuthSignInError":
+            return { error: error.message };
+          default:
+            return { error: "Something went wrong" };
+        }
+      }
+
+      throw error;
     }
-
-    // handle when email not verified
-    // if(!existingUser.emailVerified){
-    // handle by sending email verification
-    // }
-
-    // check if 2FA is true
-
-    return { email };
   });
