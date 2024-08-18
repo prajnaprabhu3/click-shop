@@ -10,20 +10,20 @@ import {
 import type { AdapterAccountType } from "next-auth/adapters";
 import { createId } from "@paralleldrive/cuid2";
 
-export const RoleEnum = pgEnum("role", ["user", "admin"]);
+export const RoleEnum = pgEnum("roles", ["user", "admin"]);
 
 export const users = pgTable("user", {
   id: text("id")
     .notNull()
     .primaryKey()
-    .$defaultFn(() => createId()), // change
+    .$defaultFn(() => createId()),
   name: text("name"),
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  password: text("password"), // change: add password field
+  password: text("password"),
   twoFactorEnabled: boolean("twoFactorEnabled").default(false),
-  role: RoleEnum("role").default("user"),
+  role: RoleEnum("roles").default("user"),
 });
 
 export const accounts = pgTable(
@@ -93,6 +93,7 @@ export const twoFaTokens = pgTable(
     token: text("token").notNull(),
     expires: timestamp("expires", { mode: "date" }).notNull(),
     email: text("email").notNull(),
+    userId: text("UserId").references(() => users.id, { onDelete: "cascade" }), // changes: when we delete a user all 2FA token associated with that userId will also get deleted
   },
   (twoFaToken) => ({
     compositePk: primaryKey({

@@ -29,6 +29,13 @@
       "when": 1723996719975,
       "tag": "0003_bright_namor",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1723998717062,
+      "tag": "0004_tough_bill_hollister",
+      "breakpoints": true
     }
   ]
 }

@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, Settings, TruckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const ProfileButton = ({ user }: Session) => {
+  const router = useRouter();
   if (user) {
     return (
       <div>
@@ -27,14 +29,20 @@ export const ProfileButton = ({ user }: Session) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40" align="end">
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="group cursor-pointer transition-all duration-500 ease-in-out">
+            <DropdownMenuItem
+              onClick={() => router.push("/dashboard/orders")}
+              className="group cursor-pointer transition-all duration-500 ease-in-out"
+            >
               <TruckIcon
                 size={14}
                 className="mr-2 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
               />
               My Orders
             </DropdownMenuItem>
-            <DropdownMenuItem className="group cursor-pointer transition-all duration-500 ease-in-out">
+            <DropdownMenuItem
+              onClick={() => router.push("/dashboard/settings")}
+              className="group cursor-pointer transition-all duration-500 ease-in-out"
+            >
               <Settings
                 size={14}
                 className="mr-2 group-hover:rotate-180 transition-all duration-300 ease-in-out"
