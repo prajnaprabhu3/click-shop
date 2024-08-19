@@ -68,7 +68,7 @@ export default function ProductCarousel({
             variant.productType === selectedColor &&
             variant.variantImages.map((img, index) => {
               return (
-                <div key={img.url}>
+                <div key={img.url} className="border rounded-lg">
                   {img.url ? (
                     <Image
                       onClick={() => updatePreview(index)}

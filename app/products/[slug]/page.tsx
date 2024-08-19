@@ -53,18 +53,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
         {/* product details  */}
         <div className="w-full md:w-[580px] flex flex-col gap-y-6 md:gap-y-0 md:p-4 md:px-20 justify-between md:h-[590px] my-10 md:my-0 py-4 md:py-0">
           <div>
-            <div className="flex items-center ">
+            <div className="flex flex-col items-start ">
               <h3 className="text-xl md:text-2xl font-medium">
                 {variant.product.title}
               </h3>
-              <h3 className="text-xl md:text-2xl font-medium">
-                - {variant.productType} variant
-              </h3>
+              <p className="text-base text-muted-foreground font-normal my-1">
+                {variant.productType} variant
+              </p>
             </div>
             <p
-              className="text-sm text-muted-foreground font-normal"
+              className="text-sm text-muted-foreground font-normal my-2"
               dangerouslySetInnerHTML={{
-                __html: `${variant.product.description.substring(0, 40)}`,
+                __html: `${variant.product.description}`,
               }}
             ></p>
           </div>
