@@ -50,7 +50,7 @@ export default async function DashboardLayout({
     <div className="flex">
       <Sidebar dashboardLinks={dashboardLinks} />
 
-      <main className="w-full flex items-center justify-center h-screen">
+      <main className="w-full flex items-start justify-center h-screen mx-10 my-10">
         {children}
       </main>
     </div>

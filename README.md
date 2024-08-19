@@ -1,15 +1,15 @@
 Todo
 - [x] main navigation
 - [ ] Auth functionality    
-    - [ ] Login
-        - [ ] Credentials
-        - [ ] OAuth
-            - [ ] Google
-            - [ ] Gtihbu
-    - [ ] Register
-    - [ ] Rest Password
-    - [ ] 2FA 
-    - [ ] Send Emails
+    - [x] Login
+        - [x] Credentials
+        - [x] OAuth
+            - [x] Google
+            - [x] Gtihbu
+    - [x] Register
+    - [x] Rest Password
+    - [x] 2FA 
+    - [x] Send Emails
 - [ ] User Features
     - [ ] Products
     - [ ] Add to cart
@@ -17,5 +17,6 @@ Todo
     - [ ] Place an order
     - [ ] View orders
 -  [ ] Admin Features
-    - [ ] Add Products
+    - [x] Add Products
+        - [ ] variant support
     - [ ] Analytics

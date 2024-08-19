@@ -21,9 +21,7 @@ export const ProfileButton = ({ user }: Session) => {
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger>
             <Avatar>
-              <AvatarImage
-                src={"https://avatars.githubusercontent.com/u/36730035?v=4"}
-              />
+              <AvatarImage src={user.image} />
               <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
