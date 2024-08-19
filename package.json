@@ -39,6 +39,7 @@
     "embla-carousel-react": "^8.1.8",
     "framer-motion": "^11.3.28",
     "input-otp": "^1.2.4",
+    "lottie-react": "^2.4.0",
     "lucide-react": "^0.428.0",
     "next": "14.2.5",
     "next-auth": "5.0.0-beta.20",
@@ -52,7 +53,8 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.13.2",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

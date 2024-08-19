@@ -16,7 +16,7 @@ export default async function Home() {
     <main className="">
       <Navbar />
 
-      <div className="my-10 py-10">
+      <div className="flex justify-center items-center  py-10">
         <Products variants={data} />
       </div>
     </main>

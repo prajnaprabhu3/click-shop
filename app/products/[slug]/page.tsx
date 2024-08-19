@@ -9,6 +9,7 @@ import ProductCarousel from "@/components/products/product-carousel";
 import { Button } from "@/components/ui/button";
 import { RiShoppingBag3Line } from "react-icons/ri";
 import { Truck } from "lucide-react";
+import AddToCart from "@/components/cart/add-to-cart";
 
 export const revalidate = 60;
 
@@ -44,43 +45,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   if (variant) {
     return (
-      // <main>
-      //   <section className="flex flex-col lg:flex-row gap-4 lg:gap-12">
-      //     <div className="flex-1">
-      //       <ProductCarousel variants={variant.product.productVariants} />
-      //     </div>
-      //     <div className="flex  flex-col flex-1">
-      //       <h2 className="text-2xl font-bold">{variant?.product.title}</h2>
-      //       <div>
-      //         <ProductType variants={variant.product.productVariants} />
-      //       </div>
-
-      //       <p className="text-2xl font-medium py-2">
-      //         {formatPrice(variant.product.price)}
-      //       </p>
-      //       <div
-      //         dangerouslySetInnerHTML={{ __html: variant.product.description }}
-      //       ></div>
-      //       <p className="text-secondary-foreground font-medium my-2">
-      //         Available Colors
-      //       </p>
-      //       <div className="flex gap-4 ">
-      // {variant.product.productVariants.map((prodVariant) => (
-      //   <ProductVariantChoose
-      //     key={prodVariant.id}
-      //     productID={variant.productID}
-      //     productType={prodVariant.productType}
-      //     id={prodVariant.id}
-      //     color={prodVariant.color}
-      //     price={variant.product.price}
-      //     title={variant.product.title}
-      //     image={prodVariant.variantImages[0].url}
-      //   />
-      // ))}
-      //       </div>
-      //     </div>
-      //   </section>
-      // </main>
       <main className="grid grid-cols-2 gap-x-2 h-screen  p-20 my-10">
         <div>
           <ProductCarousel variants={variant.product.productVariants} />
@@ -89,7 +53,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
         {/* product details  */}
         <div className="w-[580px] flex flex-col  p-4 px-20 justify-between h-[590px]">
           <div>
-            <h3 className="text-2xl font-medium">{variant.product.title}</h3>
+            <div className="flex items-center ">
+              <h3 className="text-2xl font-medium">{variant.product.title} </h3>
+              <h3 className="text-2xl font-medium">
+                - {variant.productType} variant
+              </h3>
+            </div>
             <p
               className="text-sm text-muted-foreground font-normal"
               dangerouslySetInnerHTML={{
@@ -97,10 +66,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
               }}
             ></p>
           </div>
+
           {/* price  */}
-          <p className="text-3xl font-semibold">
-            {formatPrice(variant.product.price)}
-          </p>
+          <div>
+            <h4 className="font-medium">Price</h4>
+            <p className="text-3xl font-semibold">
+              {formatPrice(variant.product.price)}
+            </p>
+          </div>
 
           {/* colors  */}
           <div>
@@ -120,18 +93,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
               ))}
             </div>
           </div>
-          {/* add to cart functionality */}
 
-          <div className="w-full">
-            <Button className="flex items-center gap-x-2 w-full">
-              <RiShoppingBag3Line size={16} /> Add to Cart
-            </Button>
-
-            <p className="flex items-center gap-x-2 mt-4 font-normal font-sm">
-              <Truck size={18} strokeWidth={2.5} />
-              Free shipping over 2000
-            </p>
-          </div>
+          <AddToCart />
         </div>
       </main>
     );
