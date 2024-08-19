@@ -32,7 +32,7 @@ export default function CartBilling() {
   const router = useRouter();
 
   return (
-    <div className="bg-primary/10 w-[500px] rounded-lg p-8 h-fit">
+    <div className="bg-primary/10 w-full md:w-[500px] rounded-lg p-8 h-fit my-8 md:my-0">
       <h4 className="font-medium">
         Price Details (
         {cart.reduce((sum, item) => sum + item.variant.quantity, 0)} Items)

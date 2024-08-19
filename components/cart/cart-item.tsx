@@ -15,8 +15,8 @@ export default function CartItem({
 }: CardItemType) {
   const { addToCart, removeFromCart, removeItemCompletely } = useCartStore();
   return (
-    <div className="flex gap-x-8 border rounded-lg p-3 w-[650px] justify-between relative">
-      <div className="flex items-center gap-x-10">
+    <div className="flex md:gap-x-8 border rounded-lg p-3 w-full  md:w-[650px] justify-between relative">
+      <div className="flex items-center gap-x-5 md:gap-x-10">
         <Image
           className="rounded-lg"
           src={image}

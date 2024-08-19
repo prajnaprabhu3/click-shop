@@ -45,17 +45,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   if (variant) {
     return (
-      <main className="grid grid-cols-2 gap-x-2 h-screen  p-20 my-10">
+      <main className="grid grid-cols-1 md:grid-cols-2 gap-x-2 h-screen  p-20 my-10">
         <div>
           <ProductCarousel variants={variant.product.productVariants} />
         </div>
 
         {/* product details  */}
-        <div className="w-[580px] flex flex-col  p-4 px-20 justify-between h-[590px]">
+        <div className="w-full md:w-[580px] flex flex-col gap-y-6 md:gap-y-0 md:p-4 md:px-20 justify-between md:h-[590px] my-10 md:my-0 py-4 md:py-0">
           <div>
             <div className="flex items-center ">
-              <h3 className="text-2xl font-medium">{variant.product.title} </h3>
-              <h3 className="text-2xl font-medium">
+              <h3 className="text-xl md:text-2xl font-medium">
+                {variant.product.title}
+              </h3>
+              <h3 className="text-xl md:text-2xl font-medium">
                 - {variant.productType} variant
               </h3>
             </div>
@@ -70,7 +72,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           {/* price  */}
           <div>
             <h4 className="font-medium">Price</h4>
-            <p className="text-3xl font-semibold">
+            <p className="text-2xl md:text-3xl font-semibold">
               {formatPrice(variant.product.price)}
             </p>
           </div>

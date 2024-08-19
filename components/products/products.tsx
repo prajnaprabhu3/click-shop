@@ -22,7 +22,7 @@ export default function Products({ variants }: ProductTypes) {
   const { cart, addToCart } = useCartStore();
 
   return (
-    <main className="px-10 mx-20 grid grid-cols-1 md:grid-cols-2 gap-12 lg:grid-cols-3">
+    <main className="md:px-10 mx-4 md:mx-20 grid grid-cols-1 md:grid-cols-2 gap-12 lg:grid-cols-3">
       {variants.map((variant) => (
         <div
           className="py-2 flex flex-col gap-y-1 w-800 p-2 border rounded-lg"

@@ -3,8 +3,8 @@ import CartItems from "@/components/cart/cart-items";
 
 export default function Cart() {
   return (
-    <div className="p-20 px-28">
-      <div className="flex justify-between">
+    <div className="md:p-20 px-3 py-14 md:px-28">
+      <div className="flex flex-col w-full md:flex-row justify-between">
         <CartItems />
 
         {/* billing  */}
