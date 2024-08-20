@@ -61,7 +61,6 @@ export default function LoginForm() {
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    // console.log(values, "My Values");
     execute(values);
   };
 

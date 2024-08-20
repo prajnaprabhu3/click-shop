@@ -76,6 +76,7 @@ const config = withUt({
     },
   },
   plugins: [require("tailwindcss-animate")],
+  class: "dark",
 }) satisfies Config;
 
 export default config;

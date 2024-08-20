@@ -72,7 +72,7 @@ export default function Products({ variants }: ProductTypes) {
                   image: variant.variantImages[0].url,
                 });
               }}
-              className="mr-3 cursor-pointer"
+              className="mr-3 cursor-pointe hover:-translate-y-1 hover:text-primary transition-all duration-300 cursor-pointer"
               size={20}
             />
           </div>

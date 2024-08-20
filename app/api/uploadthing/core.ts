@@ -13,7 +13,6 @@ export const ourFileRouter = {
   })
     .onUploadError(async ({ error }) => {
       console.log(error);
-      console.log("errorrr");
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log(file);

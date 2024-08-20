@@ -24,7 +24,7 @@ export default function Sidebar({ dashboardLinks }: SidebarProps) {
             <Link
               key={item.path}
               href={item.path}
-              className={`flex items-center gap-2 p-2 rounded hover:px-4 duration-300 ${
+              className={`flex items-center gap-2 p-2 rounded hover:px-4 duration-300 hover:text-primary ${
                 pathname.includes(item.path) ? "text-primary" : ""
               }`}
             >

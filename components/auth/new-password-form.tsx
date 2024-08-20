@@ -41,7 +41,6 @@ export default function NewPasswordForm() {
 
   const { execute, status, result } = useAction(newPassword, {
     onSuccess(data) {
-      console.log(data, "onSuccess new-password-form");
       if (data.data?.error) {
         setError(error);
       }
@@ -52,7 +51,6 @@ export default function NewPasswordForm() {
   });
 
   const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
-    // console.log(values, "values within new-password"); // working
     execute({ password: values.password, token });
   };
 

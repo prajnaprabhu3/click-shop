@@ -8,7 +8,6 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  console.log(session?.user, "from dashboard");
 
   const userLinks = [
     {

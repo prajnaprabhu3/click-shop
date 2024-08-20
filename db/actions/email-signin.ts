@@ -67,6 +67,7 @@ export const emailSignIn = actionClient
           const twoFaCodeGenerated = await generateTwoFactorToken(
             existingUser.email
           );
+
           if (!twoFaCodeGenerated) return { error: "No 2FA code" };
 
           await sendTwoFaCodeEmail(

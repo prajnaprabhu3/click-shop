@@ -3,12 +3,8 @@ import { eq } from "drizzle-orm";
 import formatPrice from "@/lib/format-price";
 import { db } from "@/db";
 import { productVariants } from "@/db/schema";
-import ProductType from "@/components/products/product-type-animation";
 import ProductVariantChoose from "@/components/products/product-variant-choose";
 import ProductCarousel from "@/components/products/product-carousel";
-import { Button } from "@/components/ui/button";
-import { RiShoppingBag3Line } from "react-icons/ri";
-import { Truck } from "lucide-react";
 import AddToCart from "@/components/cart/add-to-cart";
 
 export const revalidate = 60;
@@ -45,7 +41,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   if (variant) {
     return (
-      <main className="grid grid-cols-1 md:grid-cols-2 gap-x-2 h-screen  p-20 my-10">
+      <main className="grid grid-cols-1 md:grid-cols-2 gap-x-2 h-screen px-4 md:p-20 my-2 md:my-10">
         <div>
           <ProductCarousel variants={variant.product.productVariants} />
         </div>

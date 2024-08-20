@@ -18,9 +18,7 @@ export default function CartItems() {
     }, 0);
   }, [cart]);
 
-  useEffect(() => {
-    console.log(cart, "cart length within cart-item");
-  }, [cart]);
+  useEffect(() => {}, [cart]);
 
   if (cart.length === 0) {
     return (
